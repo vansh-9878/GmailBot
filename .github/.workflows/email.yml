@@ -1,0 +1,32 @@
+name: Check Gmail and Notify
+
+on:
+  schedule:
+    - cron: "0 */6 * * *" # Every 6 hours
+  workflow_dispatch:
+
+jobs:
+  check-email:
+    runs-on: ubuntu-latest
+
+    env:
+      GMAIL2: ${{ secrets.GMAIL2 }}
+      PASSWORD2: ${{ secrets.PASSWORD2 }}
+      TOKEN: ${{ secrets.TOKEN }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run the script
+        run: python main.py
