@@ -1,8 +1,10 @@
 from imapclient import IMAPClient
 import pyzmail
 from pushbullet import Pushbullet
-import time,os
+import time, os
+from datetime import datetime, timedelta
 from dotenv import load_dotenv
+
 load_dotenv()
 
 EMAIL = os.getenv("GMAIL2") 
@@ -23,14 +25,27 @@ def check_email():
         client.login(EMAIL, APP_PASSWORD)
         client.select_folder('INBOX')
 
-        messages = client.search(['UNSEEN'])
-        count=0
+        # Calculate dates for filtering
+        today = datetime.utcnow().date()
+        yesterday = today - timedelta(days=1)
+
+        since_date = yesterday.strftime('%d-%b-%Y')
+
+        messages = client.search(['UNSEEN', 'SINCE', since_date])
+        count = 0
+
         if messages:
             for uid in messages:
-                count+=1
-                if(count>20):
+                raw_message = client.fetch([uid], ['BODY[]', 'FLAGS', 'INTERNALDATE'])
+                message_date = raw_message[uid][b'INTERNALDATE'].date()
+
+                if message_date < yesterday:
+                    continue
+
+                count += 1
+                if count > 1:
                     break
-                raw_message = client.fetch([uid], ['BODY[]', 'FLAGS'])
+
                 message = pyzmail.PyzMessage.factory(raw_message[uid][b'BODY[]'])
 
                 subject = message.get_subject()
