@@ -43,7 +43,7 @@ def check_email():
                     continue
 
                 count += 1
-                if count > 1:
+                if count > 10:
                     break
 
                 message = pyzmail.PyzMessage.factory(raw_message[uid][b'BODY[]'])
