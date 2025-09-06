@@ -11,8 +11,13 @@ def status():
 
 @app.get("/check")
 def checkMails():
-    check_email()
-    return{
-        "status":"Up to date.."
-    }
+    try:
+        check_email()
+        return{
+            "status":"Up to date.."
+        }
+    except:
+        return{
+            "status":"Failed!!!"
+        }
     
