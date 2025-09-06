@@ -2,3 +2,5 @@ imapclient
 pyzmail36
 pushbullet.py
 python-dotenv
+fastapi
+uvicorn

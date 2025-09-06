@@ -11,7 +11,7 @@ EMAIL = os.getenv("GMAIL2")
 APP_PASSWORD = os.getenv("PASSWORD2")
 PB_ACCESS_TOKEN = os.getenv("TOKEN")
 
-KEYWORDS = ['assignment', 'deadline', 'exam', 'urgent', 'submission','VIT','Dean','HOD','NPTEL','Course','Hostel','Hackathon','workshop','registration','placement','FFCS']
+KEYWORDS = ['assignment', 'deadline', 'exam', 'urgent', 'submission','VIT','Dean','HOD','NPTEL','Course','Hostel','Hackathon','workshop','registration','placement','FFCS','register']
 
 pb = Pushbullet(PB_ACCESS_TOKEN)
 
@@ -62,4 +62,4 @@ def check_email():
         else:
             print("📭 No new unread emails.")
 
-check_email()
+# check_email()
