@@ -55,11 +55,7 @@ def check_email():
                     body = ""
 
                 if contains_keyword(subject, body):
-                    print(f"📩 Keyword match: {subject}")
+                    # print(f"📩 Keyword match: {subject}")
                     pb.push_note("📬 Important Email", subject)
-                else:
-                    print(f"📭 Skipped (no keyword): {subject}")
-        else:
-            print("📭 No new unread emails.")
+                    # print(f"📭 Skipped (no keyword): {subject}")
 
-# check_email()
